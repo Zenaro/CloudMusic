@@ -1,0 +1,47 @@
+@charset 'utf-8';
+.main{
+	width: 600px;
+	padding: 50px;
+	overflow: hidden;
+}
+.main .main-title {
+	overflow: hidden;
+	border-bottom: solid 1px #ccc;
+}
+.main .main-title h3{
+	font-size: 20px;
+	line-height: 40px;
+	float: left;
+}
+.main .main-title span {
+	display: block;
+	font-size: 16px;
+	float: left;
+	margin-left: 20px;
+	line-height: 45px;
+}
+.main .content {
+	width: 300px;
+	float: right;
+	margin-top: 20px;
+	font-size: 14px;
+	line-height: 25px;
+	min-height: 550px;
+}
+.main .content.txtOF {
+	height: 400px;
+	overflow: hidden;
+}
+.main .content p.active {
+	color: #F70324;
+	font-size: 18px;
+	padding: 10px 0;
+}
+.main a{
+	width: 100%;
+	clear: both;
+	color: blue;
+	line-height: 30px;
+	margin-left: 300px;
+	display: block;
+}
