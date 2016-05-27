@@ -1,8 +1,10 @@
 # FE-CloudMusic
 
-![summer-logo](http://7xstax.com1.z0.glb.clouddn.com/home.png)
+![cloudmusic](http://7xstax.com1.z0.glb.clouddn.com/home.png)
 
-## 这是云音乐的完全前端版本，分离出了后台，所有数据接口使用require替换。
+## 这是云音乐的完全前端版本，
+
+分离出了后台，所有数据接口使用require替换。
 
 音乐文件放在云端，实现远程加载的测试
 
