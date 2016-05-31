@@ -32,7 +32,8 @@
 	height: 400px;
 	overflow: hidden;
 }
-.main .content p.active {
+.main .content p.active,
+.main .content p:first-child {
 	color: #F70324;
 	font-size: 18px;
 	padding: 10px 0;

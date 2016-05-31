@@ -78,7 +78,7 @@ define( function( require, exports, module ) {
 	Index.prototype._load = function() {
 		var self = this,
 			html = '',
-			json = require('../justSomeData/data-getNews');
+			json = require('../justSomeData/dataGetNews');
 
 		$.each(json, function (index, value) {
 			html += '<li>' +
@@ -96,7 +96,7 @@ define( function( require, exports, module ) {
 
 			// $.post('../controller/getRank.php', {data: i}, function(result) {
 				// var json = $.parseJSON(result);
-				var json = require('../justSomeData/data-list');
+				var json = require('../justSomeData/dataList');
 				var html = '';
 				$.each(json, function (index, value) {
 					html += '<dd data-id="' + value.id + '">' +
@@ -191,9 +191,10 @@ define( function( require, exports, module ) {
 
 			var addID = $(this).parents('dd').attr('data-id'),
 				info = getMInfo(addID);
-			self._appendEle(addID);
+			// self._appendEle(addID);
 			$('audio')[0].src = info.src;
 			$('audio')[0].play();
+			$('.fix-bottom').trigger("mouseover");
 
 		}).on('click', this.rankLIAdd, function() {
 
@@ -232,10 +233,6 @@ define( function( require, exports, module ) {
 				var num = $(self.Mnumber).text();
 				$(self.Mnumber).text(++num);
 				$(self.mlist).siblings('.empty').hide();
-
-				// console.log(++num);
-				// $(self.Mnumber).text('2');
-				// console.log(++num);
 			}
 		}
 		
@@ -246,7 +243,7 @@ define( function( require, exports, module ) {
 
 	// helpers 假的接口
 	function getMInfo (data_id) {
-		var json = require('../justSomeData/data-list');
+		var json = require('../justSomeData/dataList');
 		for (key in json) {
 			if (json[key].id == data_id) {
 				return json[key];
