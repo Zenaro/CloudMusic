@@ -50,9 +50,6 @@ define ( function ( require, exports, module ) {
 
 		var self = this;
 
-		var Index = require('./index');
-		var I = new Index();
-
 		$('.wrap-in').on({
 
 			mouseover : function () {
@@ -73,16 +70,13 @@ define ( function ( require, exports, module ) {
 			I._appendMusic( addID );	
 
 		}).on('click', this.listBtnDel, function () {
-
-			// alert(cookie('unique'))
-			// alert(cookie('unique'))
+			
 			if( !!cookie('unique') ) {
 				var obj = $(this).parents('li');
 				var delID = $(obj).attr('data-id');
 				$.get('../controller/delMusic.php', {'uid':cookie('unique'), 'mid':delID} );
 				$(obj).remove();
 			}
-			
 		});
 	}
 });

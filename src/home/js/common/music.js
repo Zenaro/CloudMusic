@@ -26,12 +26,11 @@ define(function (require, exports, module) {
         this.audio.volume = $('.play-ctrl .cbar .cur').height() / 100 ;
         this._bind();                   // 启动事件监听器
 
-        this.json = require('../justSomeData/data-list');
+        this.json = require('../justSomeData/dataList');
     };
 
     Player.prototype.init = function(data_id) {
-        var self = this,
-            json = null;
+        var self = this;
 
         for (key in self.json) {
             if (self.json[key].id == data_id) {
@@ -153,7 +152,6 @@ define(function (require, exports, module) {
 
         }).on({
             click: function() {
-                console.log('ww');
                 var originType = self.loopType;
 
                 if (originType === 3) {
@@ -223,6 +221,8 @@ define(function (require, exports, module) {
             $('.play-ing .ptitle a.title').html(json.name);
             $('.play-ing .ptitle a.singer').html(json.master);
             $(self.audio).attr('data-id', json.id);
+            $('.play-head a').attr('href', './result.html?id=' + json.id);
+            $('.play-ing .ptitle a').attr('href', './result.html?id=' + json.id);
             $('.fix-bottom').trigger("mouseover");      // 模拟hover
 
             $('.play-ing .clock em').html(parseTime(self.audio.duration));  //更新时间
@@ -285,7 +285,7 @@ define(function (require, exports, module) {
 
     // 接口用
     function getMInfo (data_id) {
-        var json = require('../justSomeData/data-list');
+        var json = require('../justSomeData/dataList');
         for (key in json) {
             if (json[key].id == data_id) {
                 return json[key];

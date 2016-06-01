@@ -120,7 +120,7 @@ define( function ( require, exports, module ) {
 
 
 	function getMInfo (data_id) {
-		var json = require('../justSomeData/data-list');
+		var json = require('../justSomeData/dataList');
 		for (key in json) {
 			if (json[key].id == data_id) {
 				return json[key];

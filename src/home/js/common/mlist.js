@@ -73,7 +73,6 @@ define( function ( require, exports, module ) {
 
 			}else {
 				$(self.ulempty).show();
-
 			}
 
 		},
@@ -82,7 +81,8 @@ define( function ( require, exports, module ) {
 		_bindUI: function() {
 
 			var self = this,
-				allowMove = false;
+				allowMove = false,
+				off = 0;
 
 			$('.fix-bottom').on('mousedown', this.divList, function () {
 
@@ -301,7 +301,7 @@ define( function ( require, exports, module ) {
 	}
 
 	function getMInfo (data) {
-		var json = require('../justSomeData/data-list');
+		var json = require('../justSomeData/dataList');
 		for (key in json) {
 			if (json[key].id == data || json[key].src == data) {
 				return json[key];

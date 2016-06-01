@@ -34,7 +34,6 @@ define( function ( require, exports, module ) {
 			$.post('../controller/getUInfo.php', {id : cookie('unique')}, function( data, status ) {
 				$(self.memb).show();
 				$(self.user).html(data);
-				// cookie('name', data);
 			});
 
 			$(this.login).hide();
@@ -78,7 +77,7 @@ define( function ( require, exports, module ) {
 				} else if ( !!$.trim(this.value )) {
 					// $.post('../controller/search.php', { content:$.trim(this.value) }, function ( result ) {
 						var html = '',
-							result = require('../justSomeData/data-list');
+							result = require('../justSomeData/dataList');
 						if ( result == 'false' ) {
 							html = '搜索结果 -- 0条匹配';
 							$(self.result).empty();
