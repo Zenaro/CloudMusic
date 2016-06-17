@@ -46,9 +46,9 @@ define( function ( require, exports, module ) {
 	};
 
 	Dialog.prototype._bindUI = function() {
-
-		var	url = './result.html?id=';
-		var self = this;
+		var self = this,
+			M = require('./music'),
+			R = require('../result/result');
 
 		$('body').on({
 
@@ -56,8 +56,10 @@ define( function ( require, exports, module ) {
 					keycode = event.which;
 
 				if ( keycode == 13 ) {
-					url += $(self.resultLI).eq(self.index).attr('data-id');
-					window.location.href = url;
+					window.location.href = './frame.html#/result?id=' +
+						$(self.resultLI).eq(self.index).attr('data-id');
+					R.init();
+					M.it
 
 				} else if ( keycode == 38 && $(self.resultLI).length > 0 ) {
 					self.index < 1 ? ( self.index = $(self.resultLI).length - 1 ) : ( self.index-- );
@@ -97,8 +99,9 @@ define( function ( require, exports, module ) {
 			}
 
 		}, this.input ).on('mousedown', this.resultLI, function () {
-			url += $(this).attr('data-id');
-			window.location.href = url;
+			window.location.href = './frame.html#/result?id=' +
+				$(this).attr('data-id');
+			R.init();
 
 		}).on({
 

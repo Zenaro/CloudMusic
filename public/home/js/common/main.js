@@ -10,8 +10,7 @@ define(function(require) {
     d.render();
 
     var Music = require('./music');
-    var m = new Music();
-    m.render();
+    Music.render();
 
     var MList = require('./mlist');
     var l = new MList();
