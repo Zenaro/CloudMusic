@@ -45,19 +45,14 @@ define( function ( require, exports, module ) {
 				cell = $(this.list).height() || 30;
 
 			if ( str == 'remove' ) {
-
 				client = client < - cell ? client + cell : 0;
 
 			} else if ( str == 'append' ) {
 				// 待定
 			}
-
 			var per = parseInt( - client / $(this.objList).height() * 1000) / 10;
-
 			$(this.objList).css('top', client + 'px');
-
 			$(this.btnScl).css('top', per + '%');
-
 			$(self.numLi).html($(self.list).length);
 
 			if ($(self.list).length > 0) {
