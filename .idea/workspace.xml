@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="21910413-8883-4cfe-9f3f-4b725fe51620" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/home/js/common/mlist.js" afterPath="$PROJECT_DIR$/public/home/js/common/mlist.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/home/js/common/dialog.js" afterPath="$PROJECT_DIR$/public/home/js/common/dialog.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/home/js/result/result.js" afterPath="$PROJECT_DIR$/public/home/js/result/result.js" />
     </list>
     <ignored path="CloudMusicForAngular.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,24 +26,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/home/js/index/index.js">
+      <file leaf-file-name="music.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/home/js/common/music.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="175" column="42" selection-start-line="175" selection-start-column="42" selection-end-line="175" selection-end-column="42" />
+            <state relative-caret-position="118">
+              <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mlist.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/home/js/common/mlist.js">
+      <file leaf-file-name="dialog.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/home/js/common/dialog.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="53" column="54" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
-              <folding>
-                <marker date="1466218580096" expanded="true" signature="5014:5027" placeholder="..." />
-              </folding>
+            <state relative-caret-position="162">
+              <caret line="98" column="46" selection-start-line="98" selection-start-column="46" selection-end-line="98" selection-end-column="46" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -91,14 +92,15 @@
         <option value="$PROJECT_DIR$/phpCtrl/upload_file.php" />
         <option value="$PROJECT_DIR$/public/home/js/result/result-test.js" />
         <option value="$PROJECT_DIR$/public/home/js/result/main.js" />
-        <option value="$PROJECT_DIR$/public/home/js/result/result.js" />
         <option value="$PROJECT_DIR$/public/home/js/common/main.js" />
         <option value="$USER_HOME$/Downloads/music.sql" />
-        <option value="$PROJECT_DIR$/public/home/js/common/dialog.js" />
-        <option value="$PROJECT_DIR$/public/home/js/common/music.js" />
         <option value="$PROJECT_DIR$/public/home/css/music.css" />
         <option value="$PROJECT_DIR$/public/home/js/index/index.js" />
         <option value="$PROJECT_DIR$/public/home/js/common/mlist.js" />
+        <option value="$PROJECT_DIR$/public/home/js/result/result.js" />
+        <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/public/home/js/common/dialog.js" />
+        <option value="$PROJECT_DIR$/public/home/js/common/music.js" />
       </list>
     </option>
   </component>
@@ -108,8 +110,8 @@
     <detection-done>true</detection-done>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="442" />
-    <option name="y" value="316" />
+    <option name="x" value="522" />
+    <option name="y" value="267" />
     <option name="width" value="1472" />
     <option name="height" value="713" />
   </component>
@@ -396,15 +398,15 @@
       <workItem from="1466063988436" duration="3477000" />
       <workItem from="1466067513412" duration="15933000" />
       <workItem from="1466086441581" duration="77000" />
-      <workItem from="1466165336111" duration="9859000" />
+      <workItem from="1466165336111" duration="11188000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29346000" />
+    <option name="totallyTimeSpent" value="30675000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="442" y="316" width="1472" height="713" extended-state="0" />
+    <frame x="522" y="267" width="1472" height="713" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19584775" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -427,6 +429,7 @@
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.php" />
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.md" />
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -707,16 +710,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/home/js/result/result.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="124" column="16" selection-start-line="124" selection-start-column="16" selection-end-line="124" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/music.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="162">
@@ -733,27 +726,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/home/js/common/dialog.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="16" column="32" selection-start-line="16" selection-start-column="32" selection-end-line="16" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/home/js/common/music.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="30" column="63" selection-start-line="30" selection-start-column="63" selection-end-line="30" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/home/css/music.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="280">
           <caret line="422" column="29" selection-start-line="422" selection-start-column="29" selection-end-line="422" selection-end-column="29" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/home/js/common/mlist.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="57" column="42" selection-start-line="57" selection-start-column="42" selection-end-line="57" selection-end-column="42" />
+          <folding>
+            <marker date="1466218580096" expanded="true" signature="5014:5027" placeholder="..." />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -765,13 +752,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/home/js/common/mlist.js">
+    <entry file="file://$PROJECT_DIR$/public/home/js/result/result.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="53" column="54" selection-start-line="53" selection-start-column="54" selection-end-line="53" selection-end-column="54" />
+        <state relative-caret-position="286">
+          <caret line="114" column="21" selection-start-line="114" selection-start-column="21" selection-end-line="114" selection-end-column="21" />
           <folding>
-            <marker date="1466218580096" expanded="true" signature="5014:5027" placeholder="..." />
+            <element signature="e#0#40#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="8" column="19" selection-start-line="8" selection-start-column="19" selection-end-line="8" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/home/js/common/dialog.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="98" column="46" selection-start-line="98" selection-start-column="46" selection-end-line="98" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/home/js/common/music.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="26" column="0" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

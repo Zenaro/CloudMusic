@@ -106,7 +106,10 @@ define(function (require, exports, module) {
             $('audio').on('timeupdate', function () {            // 歌词滚动
                 if (self._lrc && self._lrc.length > 0) {
                     var length = self._lrc.length;
-                    if (this.currentTime >= self._lrc[lrc_i][0]) {
+                    if (this.currentTime &&
+                        self._lrc[lrc_i] &&
+                        this.currentTime >= self._lrc[lrc_i][0]) {
+
                         $('.main .content p').removeClass('active').eq(lrc_i).addClass('active');
                         lrc_i++;
                     }

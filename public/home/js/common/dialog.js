@@ -53,10 +53,10 @@ define( function ( require, exports, module ) {
 					keycode = event.which;
 
 				if ( keycode == 13 ) {
-					window.location.href = './frame.html#/result?id=' +
-						$(self.resultLI).eq(self.index).attr('data-id');
+					var mid = $(self.resultLI).eq(self.index).attr('data-id');
+					window.location.href = './frame.html#/result?id=' + mid;
 					R.init();
-					M.it
+					M.init(mid);
 
 				} else if ( keycode == 38 && $(self.resultLI).length > 0 ) {
 					self.index < 1 ? ( self.index = $(self.resultLI).length - 1 ) : ( self.index-- );
@@ -96,9 +96,10 @@ define( function ( require, exports, module ) {
 			}
 
 		}, this.input ).on('mousedown', this.resultLI, function () {
-			window.location.href = './frame.html#/result?id=' +
-				$(this).attr('data-id');
+			var mid = $(this).attr('data-id');
+			window.location.href = './frame.html#/result?id=' + mid;
 			R.init();
+			M.init(mid);
 
 		}).on({
 
