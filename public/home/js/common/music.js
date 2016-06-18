@@ -24,11 +24,20 @@ define(function (require, exports, module) {
 
         // init方法，同时对外提供
         init: function (data_id) {
-            var self = this;
+            var self = this,
+                json = null;
+
+            $('.play-ing .pbar .cur .cur-inner').width(0);
             $.get('../../phpCtrl/getMInfo.php?id=' + data_id, function (res) {
-                var json = $.parseJSON(res)[0];
-                $('audio')[0].src = json.src;
-                $('audio')[0].play();
+                json = $.parseJSON(res)[0];
+                $('.play-ing .ptitle a.title').html(json.name);
+                $('.play-ing .ptitle a.singer').html(json.singer_name);
+                $('.play-head a').attr('href', '#/result?id=' + json.music_id);
+                $('.play-ing .ptitle a').attr('href', '#/result?id=' + json.music_id);
+                $(self.audio).attr('data-id', json.music_id);
+                self.audio.src = json.src;
+                self.audio.play();
+                $('.fix-bottom').trigger("mouseover");
             });
         },
 
@@ -113,6 +122,22 @@ define(function (require, exports, module) {
                 if (i >= length) i = 0;
                 self.init(objList.eq(i).attr('data-id'));
 
+            }).on('click', '.play-oper a.icon-colle', function () {
+
+                if ( !cookie('unique') || cookie('unique') == '' ) {
+                    alert('您尚未登录');
+
+                } else {
+                    var mid = $('audio').attr('data-id');
+                    if (!!mid) {
+                        $.get('../../phpCtrl/colMusic.php',
+                            {uid : cookie('unique'), mid : mid},
+                            function (res) {
+                                alert(res);
+                        });
+                    }
+                }
+
             }).on('click', '.play-ing .pbar .barbg', function(event) {
 
                 var percent = event.offsetX / $(this).width();
@@ -163,7 +188,6 @@ define(function (require, exports, module) {
 
             // ----- audio多媒体事件委托
             $(this.audio).on('loadstart', function() {     // 正在加载 loading
-                $('.fix-bottom').trigger("mouseover");
                 $('.play-ing .pbar .cur span.btn-cur i').css('visibility', 'visible');
 
             }).on('canplay', function() {
@@ -181,17 +205,6 @@ define(function (require, exports, module) {
                 $('.play-ing .pbar .clock i').html(parseTime(self.audio.currentTime));
 
             }).on('durationchange', function() {
-                var json = null,
-                    data_src = self.audio.src;
-                $.get('../../phpCtrl/getMInfo.php?src=' + data_src, function(res) {
-                    json = $.parseJSON(res)[0];
-                    $('.play-ing .pbar .cur .cur-inner').width(0);
-                    $('.play-ing .ptitle a.title').html(json.name);
-                    $('.play-ing .ptitle a.singer').html(json.singer_name);
-                    $(self.audio).attr('data-id', json.music_id);
-                    $('.play-head a').attr('href', '#/result?id=' + json.music_id);
-                    $('.play-ing .ptitle a').attr('href', '#/result?id=' + json.music_id);
-                });
                 $('.play-ing .clock em').html(parseTime(self.audio.duration));  //更新时间
 
             }).on('progress', function() {      // 正在缓冲--灰色缓冲条

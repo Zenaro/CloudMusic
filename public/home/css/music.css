@@ -347,7 +347,7 @@
 
 .fix-bottom .fix-play .play-form{
 	width: 480px;
-	height: 400px;
+	height: 300px;
 	color: #979697;
 	font-size: 13px;
 	background: #2a2a2a;
@@ -355,7 +355,7 @@
 	display: none;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-	top: -401px;
+	top: -301px;
 	right: 100px;
 }
 .play-form .form-title{
@@ -415,7 +415,7 @@
 }
 .play-form .form-tab{
 	width: 470px;
-	height: 360px;
+	height: 260px;
 	float: left;
 	position: relative;
 	overflow: hidden;
@@ -459,7 +459,7 @@
 	white-space: nowrap;
 }
 .play-form .form-tab ul.mtab li .col-1{
-	width: 55%;
+	width: 52%;
 	text-indent: 25px;
 }
 .play-form .form-tab ul.mtab li .col-2{
@@ -494,7 +494,7 @@
 }
 
 .play-form .form-tab ul.mtab li .col-3{
-	width: 18%;
+	width: 21%;
 }
 .play-form .form-tab ul.mtab li .col-4{
 	width: 8%;
@@ -503,7 +503,6 @@
 	text-align: center;
 	margin: 10px auto;
 }
-
 .play-form .scrol{
 	width: 6px;
 	height: 360px;

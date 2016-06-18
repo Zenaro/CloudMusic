@@ -4,15 +4,12 @@
 define( function ( require, exports, module ) {
 
 	function Dialog() {
-
 		this.input = '.header .top-tool .top-search input';			//搜索框
 		this.result = '.header .top-tool .top-search ul.result';	//搜索结果
 		this.resultLI = '.header .top-tool .top-search ul.result li';	//搜索结果
-
 		this.login = '.header .top-tool .user-login';
 		this.memb = '.header .top-tool .user-memb';
 		this.user = '.header .top-tool .user-memb h4';
-
 		this.slideDwn = '.header .top-tool .top-user ul.slide-down';
 		this.logout = '.header .top-tool .top-user  ul.slide-down a.logout';
 	}

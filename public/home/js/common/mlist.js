@@ -4,30 +4,23 @@
 define( function ( require, exports, module ) {
 
 	function MList() {
-
-		this.divPlay = '.fix-play';								//播放条
 		this.divList = '.play-form';							//播放列表
-
-		this.btnColle = '.play-form .form-title .icon-colle';	//收藏按钮
+		this.btnColle = '.play-form .form-title .icon-colle';	//收藏全部
 		this.btnEmpty = '.play-form .form-title .icon-empty';	//清空按钮
 		this.btnFClose = '.play-form .form-title .table-close';	//关闭按钮
-
 		this.btnScl = '.play-form .scrol .icon-scl';			//下拉按钮
 		this.objList = '.play-form .form-tab ul.mtab';			//列表
 		this.list = '.play-form .form-tab ul.mtab li';			//li单元
 		this.ulempty = '.play-form .form-tab .empty';
-
 		this.liCOL = 'ul.mtab li .col-2 a.icn-col';			//收藏按钮
 		this.liDWN = 'ul.mtab li .col-2 a.icn-dwn';			//下载按钮
 		this.liDEL = 'ul.mtab li .col-2 a.icn-del';			//删除按钮
-
 		this.numLi = '.play-ctrl .music-list a';				//曲数
 	}
 
 	module.exports = MList;
 
 	MList.prototype = {
-
 		render: function() {
 			this._bindUI();
 			this._scroll();
@@ -73,12 +66,10 @@ define( function ( require, exports, module ) {
 			}else {
 				$(self.ulempty).show();
 			}
-
 		},
 
 		/*鼠标事件*/
 		_bindUI: function() {
-
 			var self = this,
 				allowMove = false,
 				off = 0;
@@ -109,15 +100,14 @@ define( function ( require, exports, module ) {
 				},
 				dblclick : function() {
 					$.get('../../phpCtrl/getMInfo.php?id=' + $(this).attr('data-id'), function(res) {
-						var json = $.parseJSON(res)[0];
-						$('audio')[0].src = json.src;
-						$('audio')[0].play();
+						var json = $.parseJSON(res)[0],
+							M = require('./music');
+						M.init(json.music_id);
 					});
 				}
 
 			}, this.list ).on('click', this.liCOL, function() {
-
-				if ( !cookie('unique') ) {
+				if ( !cookie('unique') || cookie('unique') == '' ) {
 					alert('您尚未登录');
 
 				} else {
@@ -125,18 +115,16 @@ define( function ( require, exports, module ) {
 					$.get('../../phpCtrl/colMusic.php', {
 						uid : cookie('unique'),
 						mid : trgid
-					}, function (result) {
-						alert(result);
+					}, function (res) {
+						alert(res);
 					});
 				}
 
 			}).on('click', this.liDEL, function() {
-
 				$(this).parents('li').remove();
 				self._update( 'remove' );
 
 			}).on({
-
 				mousemove: function() {
 					var _p,
 						_dis,
@@ -151,13 +139,9 @@ define( function ( require, exports, module ) {
 
 						}else if ( _dis > MAX_TOP ) {
 							_dis = MAX_TOP;
-
 						}
-
 						$( self.btnScl ).css( 'top', _dis + 'px' );			//滚动按钮移动
-
 						_p = parseInt( _dis / $( _parent ).innerHeight() * $(self.objList).height() ) ;
-
 						$( self.objList ).css( 'top', -_p+'px' );			//页面滚动
 					}
 				},
@@ -177,11 +161,9 @@ define( function ( require, exports, module ) {
 				}
 
 			}, this.divList).on('mousedown', this.btnScl, function() {
-
 				allowMove = true;
 				event.preventDefault();
 				off = event.pageY - $( this ).offset().top;
-				
 			});
 
 			$('audio').on('canplay', function() {
@@ -219,9 +201,7 @@ define( function ( require, exports, module ) {
 						$(self.objList).siblings('.empty').hide();
 					}
 				});
-				
 			});
-
 		},
 		
 		/* 滚轮 */
@@ -233,11 +213,8 @@ define( function ( require, exports, module ) {
 				_ceil = 30;			//位移单位
 
 			if ( document.addEventListener ) {	/*注册事件*/
-
 				document.addEventListener( "DOMMouseScroll", fnWheel, false );//W3C
-
 			}
-
 			document.getElementById('form-tab').onmousewheel = fnWheel;
 
 			/*执行函数*/
@@ -267,26 +244,15 @@ define( function ( require, exports, module ) {
 					$(_objList).css('top', -delta + 'px');
 					_per = parseInt( delta / $(_objList).height() * 1000) / 10;
 					$(_btnScl).css('top', _per + '%');
-
 				}
 			}
-
-
 		}
-
-
 	};
-
-
-
 	//helpers
 
 	//滚轮事件
 	function wheel( e ) {
-
 		var delta = 0;
-		var id = document.getElementById('mtab');
-
 		EVT = e || window.event; 
 
 		if ( EVT.wheelDelta ) {		/*IE Opera*/
@@ -294,28 +260,19 @@ define( function ( require, exports, module ) {
 
 		} else if ( EVT.detail ) {	/*FireFox*/
 			delta = -EVT.detail / 3;
-
 		}
 
 		/* 禁用滚轮 */
 		if ( EVT.preventDefault ) {
 			EVT.preventDefault();
-
 		}
 		EVT.returnValue = false;
-
 
 		if ( delta > 0 ) {
 			return 1;		// do something
 
 		} else if ( delta < 0) {
 			return -1;		// do another thing
-
 		}
-
-
 	}
-
-
-
 });

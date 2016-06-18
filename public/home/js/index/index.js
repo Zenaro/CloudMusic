@@ -160,11 +160,11 @@ define( function( require, exports, module ) {
 		});
 
 		$('.wrap .main-rank').on('click', this.rankALLPlay, function () {
-
 			var addID = 0,
-				html = '',
+				M = require('../common/music'),
+				MList = require('../common/mlist'),
+				MLi = new MList(),
 				index = $(this).parents('dl').index() / 2;
-
 			$.ajax({
 				'url': '../../phpCtrl/getMusic.php',
 				'data': index,
@@ -173,18 +173,17 @@ define( function( require, exports, module ) {
 					$.each(json, function(index, value) {
 						addID = value.music_id;
 						if (index == 0) {
-							$('audio')[0].src = value.src;
-							$('audio')[0].play();
+							M.init(addID);
 						} else {
 							self._appendEle(addID);
 						}
 					});
+					MLi._update();
 				}
 			});
 
 		}).on('click', this.rankALLStore, function () {
-
-			if (cookie('unique')) {
+			if (cookie('unique') && cookie('unique') != '') {
 				var t = $(this).attr('data-type');
 				$.ajax({
 					'url': '../../phpCtrl/colMusic.php',
@@ -202,7 +201,6 @@ define( function( require, exports, module ) {
 			}
 
 		}).on({
-
 			mouseover : function() {
 				$(this).children('a').first().attr('class', 'title');
 				$(this).children('div.dd-oper').show();
@@ -213,19 +211,17 @@ define( function( require, exports, module ) {
 			}
 
 		}, this.rankLI ).on('click', this.rankLIPlay, function() {
+			var addID = $(this).parents('dd').attr('data-id'),
+				M = require('../common/music');
+			M.init(addID);
 
-			var addID = $(this).parents('dd').attr('data-id');
-			$.get('../../phpCtrl/getMInfo.php?id=' + addID, function(res) {
-				var info = $.parseJSON(res)[0];
-				$('audio')[0].src = info.src;
-				$('audio')[0].play();
-			});
-
-			
 		}).on('click', this.rankLIAdd, function() {
+			var addID = $(this).parents('dd').attr('data-id'),
+				MList = require('../common/mlist'),
+				MLi = new MList();
+			self._appendEle(addID);
+			MLi._update();
 
-			var addID = $(this).parents('dd').attr('data-id');
-			self._appendEle( addID );
 			
 		}).on('click', this.rankLIStore, function() {
 			if ( !cookie('unique') ) {
@@ -241,7 +237,6 @@ define( function( require, exports, module ) {
 				});
 			}
 		});
-
 	};
 
 	Index.prototype._appendEle = function (addID) {
