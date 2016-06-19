@@ -13,7 +13,6 @@ define(function(require) {
     Music.render();
 
     var MList = require('./mlist');
-    var l = new MList();
-    l.render();
+    MList.render();
 
 });

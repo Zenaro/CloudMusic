@@ -23,24 +23,85 @@ define(function (require, exports, module) {
         },
 
         // init方法，同时对外提供
-        init: function (data_id) {
+        init: function (dataID) {
             var self = this,
                 json = null;
 
+            // 置0
             $('.play-ing .pbar .cur .cur-inner').width(0);
-            $.get('../../phpCtrl/getMInfo.php?id=' + data_id, function (res) {
+            $('.play-ing .pbar .clock i').text('00:00');
+            $('.play-head a').attr('href', '#/result?id=' + dataID);
+            $('.play-ing .ptitle a').attr('href', '#/result?id=' + dataID);
+            $(self.audio).attr('data-id', dataID);
+
+            $.get('../../phpCtrl/getMInfo.php?id=' + dataID, function (res) {
                 json = $.parseJSON(res)[0];
                 $('.play-ing .ptitle a.title').html(json.name);
                 $('.play-ing .ptitle a.singer').html(json.singer_name);
-                $('.play-head a').attr('href', '#/result?id=' + json.music_id);
-                $('.play-ing .ptitle a').attr('href', '#/result?id=' + json.music_id);
-                $(self.audio).attr('data-id', json.music_id);
                 self.audio.src = json.src;
                 self.audio.play();
                 $('.fix-bottom').trigger("mouseover");
             });
         },
 
+        // append添加歌曲进歌单方法，同时对外公开
+        appendEle: function (add) {
+            var info = null,
+                num = 0,
+                objUl = $('.play-form ul.mtab'),
+                html = '';
+            if (add instanceof Array) {           // Array类型
+                $.get('../../phpCtrl/getMInfo.php?arr=' + add, function (res) {
+                    info = $.parseJSON(res);
+                    $.each(info, function (index, value) {
+                        html += ceilPlus(value);        // 见下方ceilPlus方法
+                    });
+                    objUl.append(html).siblings('.empty').hide();
+                    num = $(objUl).children('li').length;
+                    $('.play-ctrl a.icon-list').text(num);
+                });
+
+            } else if (Number(add) == add) {    // number类型
+                $.get('../../phpCtrl/getMInfo.php?id=' + add, function (res) {
+                    info = $.parseJSON(res)[0];
+                    html += ceilPlus(info);
+                    objUl.append(html).siblings('.empty').hide();
+                    num = $(objUl).children('li').length;
+                    $('.play-ctrl a.icon-list').text(num);
+                });
+            } else {
+                console.log('参数不匹配');
+            }
+
+            // ceilPlus 方法
+            function ceilPlus(value) {
+                var existID = 0,
+                    dom = '',
+                    objLI = $('.play-form ul.mtab').children('li');
+
+                for (var i = $(objLI).length - 1; i >= -1; i--) {
+                    existID = $(objLI).eq(i).attr('data-id');
+                    if (value.music_id == existID) {	// 判断是否重复添加
+                        break;
+
+                    } else if (i <= 0) {
+                        dom = '<li data-id="' + value.music_id + '">' +
+                            '<div class="abs-stus"><span class="icn-stus"></span></div>' +
+                            '<div class="col col-1">' + value.name + '</div>' +
+                            '<div class="col col-2">' +
+                            '<a href="javascript:;" class="icn-col" title="收藏"></a>' +
+                            '<a href="'+value.src+'" download="'+value.name+'-'+value.singer_name+'.mp3" class="icn-dwn" title="下载"></a>' +
+                            '<a href="javascript:;" class="icn-del" title="删除"></a>' +
+                            '</div>' +
+                            '<div class="col col-3">' + value.singer_name + '</div>' +
+                            '<div class="col col-4">' + parseTime(value.duration) + '</div>' +
+                            '</li>';
+                        break;
+                    }
+                }
+                return dom;
+            }
+        },
         /*  ---------- private -------- */
         _bind: function () {
             var self = this,
@@ -89,7 +150,6 @@ define(function (require, exports, module) {
                 }
 
             }).on('click', '.play-btns a.prv', function() {
-
                 var i = 0,
                     objList = $('.form-tab ul li'),
                     length = objList.length;
@@ -108,7 +168,6 @@ define(function (require, exports, module) {
                 self.init(objList.eq(i).attr('data-id'));
 
             }).on('click', '.play-btns a.nxt', function() {
-
                 var i = 0,
                     objList = $('.form-tab ul li'),
                     length = objList.length;
@@ -189,6 +248,17 @@ define(function (require, exports, module) {
             // ----- audio多媒体事件委托
             $(this.audio).on('loadstart', function() {     // 正在加载 loading
                 $('.play-ing .pbar .cur span.btn-cur i').css('visibility', 'visible');
+
+                /* .abs-stus的重定向 */
+                var dataID = $(self.audio).attr('data-id'),
+                    List = $('.form-tab ul.mtab li');
+                for (var i = 0, length = $(List).length; i < length; i++) {
+                    if ($(List).eq(i).attr('data-id') == dataID) {
+                        $(List).children('.abs-stus').hide();
+                        $(List).eq(i).children('.abs-stus').show();
+                        break;
+                    }
+                }
 
             }).on('canplay', function() {
                 $('.play-ing .pbar .cur span.btn-cur i').css('visibility', 'hidden');

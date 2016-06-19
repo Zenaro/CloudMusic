@@ -376,8 +376,12 @@
 	margin-left: 10px;
 	font-size: 17px;
 }
-.play-form .form-title a{
-	width: 70px;
+.play-form .form-title a.icon-colle{
+	width: 75px;
+	font-size: 12px;
+}
+.play-form .form-title a.icon-empty{
+	width: 65px;
 	font-size: 12px;
 }
 .play-form .form-title a span{
@@ -402,7 +406,7 @@
 	color: #191919;
 	margin: 0 5px;
 }
-.play-form .form-title a.table-close{
+.play-form .form-title a.icon-close{
 	width: 25px;
 	height: 100%;
 	float: right;
@@ -410,7 +414,7 @@
 	background: url('../../image/sprite/playlist.png');
 	background-position: -195px 13px;
 }
-.play-form .form-title a.table-close:hover{
+.play-form .form-title a.icon-close:hover{
 	background-position: -195px -17px;
 }
 .play-form .form-tab{
@@ -505,7 +509,7 @@
 }
 .play-form .scrol{
 	width: 6px;
-	height: 360px;
+	height: 260px;
 	padding-right: 2px;
 	border-radius: 5px;
 	cursor: pointer;

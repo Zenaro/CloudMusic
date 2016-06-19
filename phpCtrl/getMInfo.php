@@ -15,7 +15,7 @@
 
 	} else if (isset($_GET['id'])) {		// get music info, include name, singer_name, src
 		$id = $_GET['id'];
-		$query = "SELECT name, singer_name, src, music_id FROM app_singerRmusic NATURAL JOIN app_Music NATURAL JOIN app_Singer WHERE music_id='{$id}'";
+		$query = "SELECT name, singer_name, src, music_id, duration FROM app_singerRmusic NATURAL JOIN app_Music NATURAL JOIN app_Singer WHERE music_id='{$id}'";
 
 		$result = @mysql_query($query) or die("SQL语句有误".mysql_error());
 
@@ -30,10 +30,20 @@
 		
 		echo '['.substr($json, 0, strlen($json) - 1).']';
 
-	} else if (isset($_GET['src'])) {
-	        $src = $_GET['src'];
+	}  else if (isset($_GET['name'])) {
+		$music = $_GET['name'];
 
-	        $query = "SELECT name, singer_name, src, music_id FROM app_singerRmusic NATURAL JOIN app_Music NATURAL JOIN app_Singer WHERE src='{$src}'";
+		$query = "SELECT name, singer_name, lyric FROM app_singer-music JOIN app_Singer JOIN app_Music WHERE name like '%" .$music. "%' LIMIT 1";
+
+		$result = @mysql_query($query) or die("SQL语句有误".mysql_error());
+
+		while (!!$row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+			echo $row['lyric'];
+		}
+	} else if (isset($_GET['arr'])) {		// array music list
+	        $arr = $_GET['arr'];
+	    
+	        $query = "SELECT name, singer_name, duration, src, music_id FROM app_singerRmusic NATURAL JOIN app_Music NATURAL JOIN app_Singer WHERE music_id IN (".$arr.") ORDER BY listeners DESC";
 
 	        $result = @mysql_query($query) or die("SQL语句有误".mysql_error());
 
@@ -47,18 +57,7 @@
 	        }
 
 	        echo '['.substr($json, 0, strlen($json) - 1).']';
-
-    	} else if (isset($_GET['name'])) {
-		$music = $_GET['name'];
-
-		$query = "SELECT name, singer_name, lyric FROM app_singer-music JOIN app_Singer JOIN app_Music WHERE name like '%" .$music. "%' LIMIT 1";
-
-		$result = @mysql_query($query) or die("SQL语句有误".mysql_error());
-
-		while (!!$row = mysql_fetch_array($result, MYSQL_ASSOC)) {
-			echo $row['lyric'];
-		}
-	}
+    	}
 
 	mysql_close();
 ?>

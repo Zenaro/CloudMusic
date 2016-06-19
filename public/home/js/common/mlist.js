@@ -3,37 +3,34 @@
 */	
 define( function ( require, exports, module ) {
 
-	function MList() {
-		this.divList = '.play-form';							//播放列表
-		this.btnColle = '.play-form .form-title .icon-colle';	//收藏全部
-		this.btnEmpty = '.play-form .form-title .icon-empty';	//清空按钮
-		this.btnFClose = '.play-form .form-title .table-close';	//关闭按钮
-		this.btnScl = '.play-form .scrol .icon-scl';			//下拉按钮
-		this.objList = '.play-form .form-tab ul.mtab';			//列表
-		this.list = '.play-form .form-tab ul.mtab li';			//li单元
-		this.ulempty = '.play-form .form-tab .empty';
-		this.liCOL = 'ul.mtab li .col-2 a.icn-col';			//收藏按钮
-		this.liDWN = 'ul.mtab li .col-2 a.icn-dwn';			//下载按钮
-		this.liDEL = 'ul.mtab li .col-2 a.icn-del';			//删除按钮
-		this.numLi = '.play-ctrl .music-list a';				//曲数
-	}
+	module.exports = {
+		btnScl: '.play-form .scrol .icon-scl',		// 下拉条
+		objList: '.play-form .form-tab ul.mtab',	// ul对象
+		listHeight: 30,								// li的默认高度
 
-	module.exports = MList;
-
-	MList.prototype = {
-		render: function() {
+		/* 渲染方法 */
+		render: function () {
 			this._bindUI();
 			this._scroll();
 		},
 
-		//update 播放列表的各种 size
-		_update : function ( str ) {
-			var self = this;
-			var hg = $( self.list ).height() * $( self.list ).length;
-			var	subHg = $( self.objList ).parent('div').height();
+		/* 当添加或删除li时, 更新下拉条的长度, 位置, 以及调整ul的top参数, 对外公开*/
+		update: function (temp) {	// temp = {remove: 300} || {add: 200},200为预计增加的ul高度
+			var self = this,
+				objLI = $('.play-form ul.mtab li'),
+				txtEmpty = $('.play-form .form-tab .empty'),
+				client = parseInt($(this.objList).css('top')),
+				hg = this.listHeight * objLI.length,
+				subHg = $( self.objList ).parent('div').height();
+			if ( !!temp && !!temp.remove ) {
+				client = client < - this.listHeight ? client + this.listHeight : 0;
+
+			} else if ( !!temp && !!temp.add ) {				// 待定
+				hg += temp.add;
+			}
 
 			if (hg >= subHg) {
-				var p = parseInt( subHg / hg * 1000) / 10; 
+				var p = parseInt( subHg / hg * 1000) / 10;
 				$(self.btnScl).css('height', p + '%');
 				$(self.btnScl).parent('.scrol').show();
 
@@ -41,48 +38,34 @@ define( function ( require, exports, module ) {
 				$(self.btnScl).parent('.scrol').hide();
 			}
 
-			var client = parseInt( $(this.objList).css('top') ),
-				cell = $(this.list).height() || 30;
-
-			if ( str == 'remove' ) {
-				client = client < - cell ? client + cell : 0;
-
-			} else if ( str == 'append' ) {
-				// 待定
-			}
 			var per = parseInt( - client / $(this.objList).height() * 1000) / 10;
 			$(this.objList).css('top', client + 'px');
 			$(this.btnScl).css('top', per + '%');
-			$(self.numLi).html($(self.list).length);
-
-			if ($(self.list).length > 0) {
-				$(self.ulempty).hide();
+			$('.play-ctrl .music-list a').html(objLI.length);
+			if ($(objLI).length > 0) {
+				$(txtEmpty).hide();
 
 			}else {
-				$(self.ulempty).show();
+				$(txtEmpty).show();
 			}
 		},
 
 		/*鼠标事件*/
-		_bindUI: function() {
+		_bindUI: function () {
 			var self = this,
 				allowMove = false,
 				off = 0;
-
-			$('.fix-bottom').on('mousedown', this.divList, function () {
-
+			$('.fix-bottom').on('mousedown', '.play-form', function () {
 				return false;
 
-			}).on('click', this.btnEmpty, function() {
-
-				if ($(self.list).length > 0) {
+			}).on('click', '.play-form .form-title .icon-empty', function() {
+				if ($('.play-form ul.mtab li').length > 0) {
 					$(self.objList).empty();
-					self._update();
+					self.update();
 				}
 
-			}).on( 'click', this.btnFClose, function() {
-
-				$( self.divList ).hide();
+			}).on( 'click', '.play-form .form-title .icon-close', function() {
+				$('.play-form').hide();
 
 			}).on({
 				mouseover : function() {
@@ -101,7 +84,7 @@ define( function ( require, exports, module ) {
 					});
 				}
 
-			}, this.list ).on('click', this.liCOL, function() {
+			}, '.play-form ul.mtab li' ).on('click', 'ul.mtab li a.icn-col', function() {
 				if ( !cookie('unique') || cookie('unique') == '' ) {
 					alert('您尚未登录');
 
@@ -115,9 +98,9 @@ define( function ( require, exports, module ) {
 					});
 				}
 
-			}).on('click', this.liDEL, function() {
+			}).on('click', 'ul.mtab li a.icn-del', function() {
 				$(this).parents('li').remove();
-				self._update( 'remove' );
+				self.update({remove: 30});
 
 			}).on({
 				mousemove: function() {
@@ -143,7 +126,7 @@ define( function ( require, exports, module ) {
 				mouseup: function() {
 					if ( allowMove ) {
 						allowMove = false;
-					}	
+					}
 				},
 				mouseover: function() {
 					self.tout && clearTimeout( self.tout );
@@ -155,58 +138,19 @@ define( function ( require, exports, module ) {
 					},200 );
 				}
 
-			}, this.divList).on('mousedown', this.btnScl, function() {
+			}, '.play-form').on('mousedown', this.btnScl, function() {
 				allowMove = true;
 				event.preventDefault();
 				off = event.pageY - $( this ).offset().top;
 			});
-
-			$('audio').on('canplay', function() {
-				var isset = false,
-					dataSrc = $('audio')[0].src;
-				$.get('../../phpCtrl/getMInfo.php?src=' + dataSrc, function(res) {
-					var json = $.parseJSON(res)[0],
-						dataID = json.music_id;
-
-					// 检查歌曲列表中有没有存在该歌曲，没有则添加
-					for (var i = 0, length = $(self.list).length; i < length; i++) {
-						if ($(self.list).eq(i).attr('data-id') == dataID) {
-							isset = true;
-							$(self.list).children('.abs-stus').hide();
-							$(self.list).eq(i).children('.abs-stus').show();
-							break;
-						}
-					}
-					if (!isset) {
-						$(self.list).children('.abs-stus').hide();		//先全部隐藏
-						var html = '<li data-id="' + json.music_id + '">' +
-							'<div class="abs-stus" style="display:block"><span class="icn-stus"></span></div>' +
-							'<div class="col col-1">' + json.name + '</div>' +
-							'<div class="col col-2">' +
-							'<a href="javascript:;" class="icn-col" title="收藏"></a>' +
-							'<a href="javascript:;" class="icn-dwn" title="下载"></a>' +
-							'<a href="javascript:;" class="icn-del" title="删除"></a>' +
-							'</div>' +
-							'<div class="col col-3">' + json.singer_name + '</div>' +
-							'<div class="col col-4">03:23</div>' +
-							'</li>';
-						$(self.objList).append(html);
-						var num = $(self.numLi).text();
-						$(self.numLi).text(++num);
-						$(self.objList).siblings('.empty').hide();
-					}
-				});
-			});
 		},
-		
+
 		/* 滚轮 */
-		_scroll: function() {
-			
-			var delta = 0,			//偏移量		
+		_scroll: function () {
+			var delta = 0,			//偏移量
 				isWheel,			//计算溢出
 				_per = 0,			//下拉条 位移
 				_ceil = 30;			//位移单位
-
 			if ( document.addEventListener ) {	/*注册事件*/
 				document.addEventListener( "DOMMouseScroll", fnWheel, false );//W3C
 			}
@@ -214,17 +158,14 @@ define( function ( require, exports, module ) {
 
 			/*执行函数*/
 			function fnWheel(e) {
-
 				/* 火狐的this指代不明 问题 */
 				var _objList = '.play-form .form-tab .mtab';
 				var _btnScl = '.play-form .scrol .icon-scl';
 				delta = -parseInt($(_objList).css('top')) || 0;
-
 				isWheel = $(_objList).innerHeight() - $(_objList).parent('div').innerHeight();
-
 				if ( wheel(e) === 1 && delta >= 0) {			//向上 && 允许
 					delta = delta - _ceil;
-					if ( delta < 0 ) { 
+					if ( delta < 0 ) {
 						delta = 0;
 					}
 					$(_objList).css('top', -delta + 'px');
@@ -243,12 +184,13 @@ define( function ( require, exports, module ) {
 			}
 		}
 	};
+
 	//helpers
 
 	//滚轮事件
 	function wheel( e ) {
 		var delta = 0;
-		EVT = e || window.event; 
+		EVT = e || window.event;
 
 		if ( EVT.wheelDelta ) {		/*IE Opera*/
 			delta = EVT.wheelDelta / 120;
