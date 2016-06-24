@@ -111,7 +111,7 @@ define( function( require, exports, module ) {
 
 	Index.prototype._bind = function() {
 		var self = this,
-			Music = require('../common/music'),
+			Player = require('../common/player'),
 			MList = require('../common/mlist');
 
 		$('.wrap .main-top').on({
@@ -145,35 +145,19 @@ define( function( require, exports, module ) {
 			$(self.btnNews).eq($(this).index()).children('a').addClass('active');
 		});
 
-		$('.wrap .main-rank').on('click', this.rankALLPlay, function () {
+		$('.wrap .main-rank').on('click', this.rankALLPlay, function (event) {
 			var arr = [],	// 造一个歌曲的id数组
 				id = 0,
+				e = event || window.event,
 				objList = $(this).parents('dl').children('dd');
+			e.stopPropagation();
 			for (var i = 0; i < objList.length; i++) {
 				id = $(objList).eq(i).attr('data-id');
 				arr.push(id);
 			}
-			Music.appendEle(arr);	// append一个数组
-			Music.init(arr[0]);
+			Player.appendEle(arr);	// append一个数组
+			Player.init(arr[0]);
 			MList.update({add: 300});
-
-		}).on('click', this.rankALLStore, function () {
-			if (cookie('unique') && cookie('unique') != '') {
-				var t = $(this).attr('data-type');
-				$.ajax({
-					'url': '../../phpCtrl/colMusic.php',
-					'type': 'POST',
-					'data': {
-						uid : cookie('unique'),
-						type: t
-					},
-					'success': function(res) {
-						alert(res);
-					}
-				});
-			} else {
-				alert('您尚未登录');
-			}
 
 		}).on({
 			mouseover : function() {
@@ -187,28 +171,14 @@ define( function( require, exports, module ) {
 
 		}, this.rankLI ).on('click', this.rankLIPlay, function() {
 			var addID = $(this).parents('dd').attr('data-id');
-			Music.appendEle(addID);
-			Music.init(addID);
+			Player.appendEle(addID);
+			Player.init(addID);
 			MList.update();
 
 		}).on('click', this.rankLIAdd, function() {
 			var addID = $(this).parents('dd').attr('data-id');
-			Music.appendEle(addID);
+			Player.appendEle(addID);
 			MList.update();
-
-		}).on('click', this.rankLIStore, function() {
-			if ( !cookie('unique') ) {
-				alert('您尚未登录');
-
-			} else {
-				var trgid = $(this).parents('dd').attr('data-id');
-				$.get('../../phpCtrl/colMusic.php', {
-					uid : cookie('unique'),
-					mid : trgid
-				}, function (result) {
-					alert(result);
-				});
-			}
 		});
 	};
 });

@@ -1,9 +1,17 @@
-# CloudMusic-for-AngularJS
-CloudMusic的AngularJS版本。使用AngularJS的单页面app这一特性，解决页面跳转时音乐播放受影响的问题
-### How to use
-1. 将该文件夹复制到XAMPP的localhost文件夹中
+# FE-CloudMusic
 
-2. 启动MySql服务，使用sql-file/music.sql文件恢复数据库。数据库帐号默认为{user: root, pwd: ''}。
-若与此不同请修改phpCtrl/config.php中的帐号密码配置。
+![cloudmusic](http://7xstax.com1.z0.glb.clouddn.com/index-1.png)
 
-3. 打开localhost即可浏览。
+![cloudmusic](http://7xstax.com1.z0.glb.clouddn.com/index-2.png)
+
+
+## 这是云音乐的完全前端版本，
+
+分离出了后台，所有数据接口使用require替换。
+
+音乐文件放在云端，实现远程加载的测试
+
+打包下载后即可本地测试
+
+网站实现的主要功能为播放器，播放列表，歌词滚动，等等。
+限于篇幅，先到这里

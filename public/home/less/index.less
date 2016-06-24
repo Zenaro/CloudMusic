@@ -1,0 +1,265 @@
+.wrap {
+  .column{
+    width: 100%;
+    margin: 20px auto 10px auto;
+    clear: both;
+    > .sidebar {
+      width: 24%;
+      height: 100%;
+      float: left;
+      background: #fff;
+      overflow: hidden;
+      border: solid 1px #f1f1f1;
+    }
+    > .section {
+      width: 75%;
+      height: 100%;
+      float: left;
+      background: #fff;
+      overflow: hidden;
+      border: solid 1px #f1f1f1;
+      > h3 {
+        font-size: 18px;
+        margin: 0 2%;
+        padding: 1% 4%;
+        border-bottom: solid 1px #ccc;
+        > span {
+          color: #ddd;
+          font-size: 10px;
+          padding: 2%;
+        }
+      }
+    }
+  }
+  .main-top {
+    height: 265px;
+  }
+  .main-class {
+    height: 320px;
+    > .sidebar {
+      > h3 {
+        margin: 0 20px;
+        font-size: 18px;
+        height: 60px;
+        line-height: 60px;
+        border-bottom: solid 1px #ccc;
+        > i.icon {
+          width: 24px;
+          height: 22px;
+          display: block;
+          float: left;
+          margin: 21px 9px 0 0;
+          background: url('../../image/sprite/iconblue.png') no-repeat center left;
+          background-position: -120px -90px;
+        }
+      }
+      > ul li {
+        width: 100%;
+        height: 50px;
+        line-height: 50px;
+        font-size: 15px;
+        float: left;
+        text-align: center;
+        position: relative;
+        > a {
+          color: #333;
+          display: block;
+          &:hover {
+            color: #fff;
+            background: #B49DDB;
+          }
+          > i {
+            width: 12px;
+            height: 12px;
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin: -6px 0 0 -6px;
+            background: url('../../image/sprite/iconblue.png') no-repeat;
+            background-position: -90px 0;
+          }
+        }
+      }
+      a.more {
+        line-height: 60px;
+        float: right;
+        padding: 0 30px;
+        font-size: 14px;
+        color: #aaa;
+        &:hover {
+          color: #620DF0;
+        }
+      }
+    }
+
+    /* -- section -- */
+    .section {
+      float: right;
+      > ul {
+        overflow: hidden;
+        > li {
+          width: 30%;
+          height: 100%;
+          margin: 1% 0 0 10%;
+          float: left;
+          > img {
+            width: 200px;
+          }
+        }
+      }
+    }
+  }
+
+  /*-----main-rank----*/
+  .main-rank {
+    height: 600px;
+    > .section .rank {
+      margin: 15px;
+      height: 493px;
+      background: #f4f4f4;
+      border: solid 1px #ccc;
+      overflow: hidden;
+      > dl {
+        width: 33.2%;
+        float: left;
+        a {  color: #333;  }
+        a:hover {  text-decoration: underline;  }
+        > dt {
+          padding: 20px;
+          height: 80px;
+          > .dt-img {
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            display: block;
+            float: left;
+          }
+          > .dt-img {
+            width: 80px;
+            height: 80px;
+            overflow: hidden;
+            display: block;
+            float: left;
+          }
+          > .dt-txt {
+            width: 50%;
+            height: 80px;
+            float: left;
+            margin-left: 10px;
+            font-size: 16px;
+            > a.title {
+              width: 100%;
+              line-height: 30px;
+              font-weight: bold;
+              display: block;
+              float: left;
+            }
+            > a.icon {
+              width: 22px;
+              height: 22px;
+              float: left;
+              display: block;
+              margin: 5px;
+              background: url('../../image/sprite/index.png') no-repeat;
+            }
+            > a.icon-play {
+              background-position: -267px -205px;
+              &:hover {
+                background-position: -267px -235px;
+              }
+            }
+            > a.icon-store {
+              background-position: -300px -206px;
+              &:hover {
+                background-position: -300px -236px;
+              }
+            }
+          }
+        }
+        > dd {
+          width: 100%;
+          height: 34px;
+          float: left;
+          overflow: hidden;
+          line-height: 32px;
+          > span {
+            color: red;
+            font-size: 16px;
+            display: block;
+            width: 20px;
+            text-align: center;
+            float: left;
+            padding: 0 10px 0 15px;
+          }
+          > a.title {
+            display: block;
+            max-width: 110px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            float: left;
+          }
+          > .dd-oper {
+            width: 90px;
+            float: right;
+            display: none;
+            > a {
+              width: 17px;
+              height: 17px;
+              margin: 8px 5px;
+              display: block;
+              float: left;
+              background: url('../../image/sprite/index.png');
+            }
+            > a.icon-play {
+              background-position: -267px -268px;
+              &:hover {
+                background-position: -267px -288px;
+              }
+            }
+            > a.icon-add {
+              background: url('../../image/sprite/iconplay.png') 0 -698px;
+              &:hover {
+                background-position: -22px -698px;
+              }
+            }
+            > a.icon-store {
+              background-position: -297px -268px;
+              &:hover {
+                background-position: -297px -288px;
+              }
+            }
+          }
+        }
+        .dd {
+          width: 100%;
+          height: 34px;
+          float: left;
+          line-height: 32px;
+          background: #e8e8e8;
+          > a.dd-more {
+            float: right;
+            margin-right: 30px;
+          }
+        }
+      }
+      .blk-border {
+        width: 0.2%;
+        height: 100%;
+        float: left;
+        background: #ddd;
+      }
+    }
+    > .sidebar {
+      float: right;
+      > h3 {
+        margin: 0 5%;
+        color: #888;
+        font-size: 16px;
+        line-height: 42px;
+        border-bottom: solid 1px #ccc;
+      }
+    }
+  }
+}

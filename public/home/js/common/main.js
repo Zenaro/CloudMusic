@@ -3,14 +3,13 @@
  */
 define(function(require) {
     var $ = require('jquery');
-    require('./cookie');
 
     var Dialog = require('./dialog');
     var d = new Dialog();
     d.render();
 
-    var Music = require('./music');
-    Music.render();
+    var Player = require('./player');
+    Player.render();
 
     var MList = require('./mlist');
     MList.render();

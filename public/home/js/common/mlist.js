@@ -4,8 +4,8 @@
 define( function ( require, exports, module ) {
 
 	module.exports = {
-		btnScl: '.play-form .scrol .icon-scl',		// 下拉条
-		objList: '.play-form .form-tab ul.mtab',	// ul对象
+		btnScl: '.table .scrol .icon-scl',		// 下拉条
+		objList: '.tab-content ul.mtab',	// ul对象
 		listHeight: 30,								// li的默认高度
 
 		/* 渲染方法 */
@@ -17,8 +17,8 @@ define( function ( require, exports, module ) {
 		/* 当添加或删除li时, 更新下拉条的长度, 位置, 以及调整ul的top参数, 对外公开*/
 		update: function (temp) {	// temp = {remove: 300} || {add: 200},200为预计增加的ul高度
 			var self = this,
-				objLI = $('.play-form ul.mtab li'),
-				txtEmpty = $('.play-form .form-tab .empty'),
+				objLI = $('.table ul.mtab li'),
+				txtEmpty = $('.table-content .empty'),
 				client = parseInt($(this.objList).css('top')),
 				hg = this.listHeight * objLI.length,
 				subHg = $( self.objList ).parent('div').height();
@@ -55,17 +55,17 @@ define( function ( require, exports, module ) {
 			var self = this,
 				allowMove = false,
 				off = 0;
-			$('.fix-bottom').on('mousedown', '.play-form', function () {
+			$('.audio-player').on('mousedown', '.table', function () {
 				return false;
 
-			}).on('click', '.play-form .form-title .icon-empty', function() {
-				if ($('.play-form ul.mtab li').length > 0) {
+			}).on('click', '.table .tab-title .icon-empty', function() {
+				if ($('.table ul.mtab li').length > 0) {
 					$(self.objList).empty();
 					self.update();
 				}
 
-			}).on( 'click', '.play-form .form-title .icon-close', function() {
-				$('.play-form').hide();
+			}).on( 'click', '.table .tab-title .icon-close', function() {
+				$('.table').hide();
 
 			}).on({
 				mouseover : function() {
@@ -79,26 +79,12 @@ define( function ( require, exports, module ) {
 				dblclick : function() {
 					$.get('../../phpCtrl/getMInfo.php?id=' + $(this).attr('data-id'), function(res) {
 						var json = $.parseJSON(res)[0],
-							M = require('./music');
+							M = require('./player');
 						M.init(json.music_id);
 					});
 				}
 
-			}, '.play-form ul.mtab li' ).on('click', 'ul.mtab li a.icn-col', function() {
-				if ( !cookie('unique') || cookie('unique') == '' ) {
-					alert('您尚未登录');
-
-				} else {
-					var trgid = $(this).parents('li').attr('data-id');
-					$.get('../../phpCtrl/colMusic.php', {
-						uid : cookie('unique'),
-						mid : trgid
-					}, function (res) {
-						alert(res);
-					});
-				}
-
-			}).on('click', 'ul.mtab li a.icn-del', function() {
+			}, '.table ul.mtab li' ).on('click', 'ul.mtab li a.icn-del', function() {
 				$(this).parents('li').remove();
 				self.update({remove: 30});
 
@@ -138,7 +124,7 @@ define( function ( require, exports, module ) {
 					},200 );
 				}
 
-			}, '.play-form').on('mousedown', this.btnScl, function() {
+			}, '.table').on('mousedown', this.btnScl, function() {
 				allowMove = true;
 				event.preventDefault();
 				off = event.pageY - $( this ).offset().top;
@@ -154,13 +140,13 @@ define( function ( require, exports, module ) {
 			if ( document.addEventListener ) {	/*注册事件*/
 				document.addEventListener( "DOMMouseScroll", fnWheel, false );//W3C
 			}
-			document.getElementById('form-tab').onmousewheel = fnWheel;
+			document.getElementById('tab-content').onmousewheel = fnWheel;
 
 			/*执行函数*/
 			function fnWheel(e) {
 				/* 火狐的this指代不明 问题 */
-				var _objList = '.play-form .form-tab .mtab';
-				var _btnScl = '.play-form .scrol .icon-scl';
+				var _objList = '.table ul.mtab';
+				var _btnScl = '.table .scrol .icon-scl';
 				delta = -parseInt($(_objList).css('top')) || 0;
 				isWheel = $(_objList).innerHeight() - $(_objList).parent('div').innerHeight();
 				if ( wheel(e) === 1 && delta >= 0) {			//向上 && 允许

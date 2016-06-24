@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Lyric~音乐工厂</title>
     <link rel="stylesheet" href="../../public/home/css/frame.css">
-    <link rel="stylesheet" href="../../public/home/css/music.css">
+    <link rel="stylesheet" href="../../public/home/css/player.css">
     <link rel="shortcut icon" type="image/x-icon" href="../../public/image/sprite/favicon.ico" />
     <script src="../../Lib/angular/angular.min.js"></script>
     <script src="../../Lib/angular/angular-route.min.js"></script>
@@ -18,26 +18,15 @@
         <h1>Lyric 音乐场</h1>
         <ul class="nav">
             <li><a href="#/home" class="active">发现音乐</a></li>
-            <li><a href="#/login">我的音乐</a></li>
-            <li><a href="#/login">热门专辑</a></li>
-            <li><a href="#/login">在线好友</a></li>
+            <li><a href="#/">我的音乐</a></li>
+            <li><a href="#/">热门专辑</a></li>
+            <li><a href="#/">在线好友</a></li>
         </ul>
         <div class="top-tool">
             <div class="top-search">
                 <i class="icn-search"></i>
                 <input type="text" placeholder="单曲/歌手/专辑/歌单/用户">
                 <ul class="result"></ul>
-            </div>
-            <div class="top-user">
-                <a href="#/login" class="user-login">登录</a>
-                <div class="user-memb">
-                    <h4>用户</h4>
-                    <ul class="slide-down">
-                        <li><a href="#/my">我的主页</a></li>
-                        <li><a href="#/my">资料设置</a></li>
-                        <li><a href="javascript:;" class="logout">退出</a></li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -77,20 +66,30 @@
 </div>
 
 <!-- 播放条 -->
-<div class="fix-bottom">
-    <div class="fix-lock">
-        <div class="lock-img"><a href="javascript:;" class="unlock"></a></div>
+<div class="audio-player">
+    <div class="center-btn"></div>
+    <div class="table">
+        <div class="tab-title">
+            <h3>播放列表</h3>
+            <a href="javascript:;" class="icon-empty"><span></span>清空列表</a>
+            <a href="javascript:;" class="icon-close" title="关闭"></a>
+        </div>
+        <div class="tab-content" id="tab-content">
+            <ul class="mtab" id="tab"><!-- 播放列表 --></ul>
+            <div class="empty">播放列表为空哦</div>
+        </div>
+        <div class="scrol"><span class="icon-scl"></span></div>
     </div>
-    <div class="fix-play">
-        <div class="play-btns" id="play-btns">
-            <a href="javascript:;" class="prv" title="上一首"></a>
-            <a href="javascript:;" id="data-ps" class="ply" title="播放"></a><!--.pas-->
-            <a href="javascript:;" class="nxt" title="下一首"></a>
+    <div class="slide">
+        <div class="play-btns">
+            <a href="" class="prv"></a>
+            <a href="" class="play play-ply"></a>
+            <a href="" class="nxt"></a>
         </div>
         <div class="play-head">
             <a href="#"><img src="../../public/image/sprite/default_album.jpg" alt=""></a>
         </div>
-        <div class="play-ing" id="play-ing">
+        <div class="play-ing">
             <div class="ptitle">
                 <a href="#" class="title" title="曲名"></a>
                 <a href="#" class="singer" title="演绎者"></a>
@@ -102,31 +101,12 @@
                         <div class="cur-inner">
                             <span class="btn-cur"><i></i></span>
                         </div>
-                        <!-- <span class="btn-cur" id="data-cur"><i></i></span> -->
                     </div>
                 </div>
                 <span class="clock"><i>00:00</i> / <em>00:00</em></span>
             </div>
         </div>
-        <div class="play-oper" id="play-oper">
-            <a href="javascript:;" class="icon-colle" title="收藏"></a>
-            <a href="javascript:;" class="icon-share" title="分享"></a>
-        </div>
-        <div class="play-form">
-            <div class="form-title">
-                <h3>播放列表</h3>
-                <a href="javascript:;" class="icon-colle"><span></span>收藏全部</a>
-                <span>|</span>
-                <a href="javascript:;" class="icon-empty"><span></span>清空</a>
-                <a href="javascript:;" class="icon-close" title="关闭"></a>
-            </div>
-            <div class="form-tab" id="form-tab">
-                <ul class="mtab" id="mtab"></ul><!-- 播放列表 -->
-                <div class="empty">播放列表为空哦</div>
-            </div>
-            <div class="scrol"><span class="icon-scl"></span></div>
-        </div>
-        <div class="play-ctrl" id="play-ctrl">
+        <div class="play-ctrl">
             <div class="cbar">
                 <div class="barbg"><!-- 音量调节条 -->
                     <div class="cur">
@@ -136,15 +116,15 @@
             </div>
             <a href="javascript:;" class="icon-vol" title="音量"></a>
             <a href="javascript:;" class="icon-loop" id="data-lop" title="循环"></a>
-            <div class="lp-tip">单曲循环</div>
+            <div class="lop-hint">单曲循环</div>
             <span class="music-list">
                 <a href="javascript:;" class="icon-list" title="播放列表">0</a>
                 <em>已添加到播放列表</em>
             </span>
         </div>
-
     </div>
     <audio id="player" controls="false"></audio>
 </div>
+
 </body>
 </html>

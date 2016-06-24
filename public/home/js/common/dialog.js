@@ -23,28 +23,12 @@ define( function ( require, exports, module ) {
 	};
 
 	Dialog.prototype._init = function() {
-		var self = this;
 		this.index = -1;
-		if ( !!cookie('unique') && cookie('unique') != '' ) {
-			$.post('../../phpCtrl/getUInfo.php', {id : cookie('unique')}, function(res) {
-				$(self.memb).show();
-				$(self.user).html(res);
-			});
-			$(this.login).hide();
-			var a = $('.header ul.nav li a');
-			a.eq(1).attr('href', '#/my');
-			a.eq(2).attr('href', '#/my');
-
-		} else {
-			$(this.memb).hide();
-			$(this.login).show();
-		}
-
 	};
 
 	Dialog.prototype._bindUI = function() {
 		var self = this,
-			M = require('./music'),
+			M = require('./player'),
 			R = require('../result/result');
 
 		$('body').on({
@@ -102,7 +86,6 @@ define( function ( require, exports, module ) {
 			M.init(mid);
 
 		}).on({
-
 			mouseover : function () {
 				$(self.slideDwn).show();
 			},
@@ -111,8 +94,6 @@ define( function ( require, exports, module ) {
 			}
 			
 		}, this.memb ).on('click', this.logout, function () {
-			removeCookie('unique');
-			removeCookie('name');
 			history.go(0);
 
 		});

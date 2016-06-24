@@ -1,0 +1,415 @@
+@color: #369;
+@btn-size: 40px;
+.audio-player a, .audio-player i, .audio-player em {
+  display: block;
+  float: left;
+  text-decoration: none;
+  font-style: normal;
+}
+.v-center(@w, @h) {  /* 居中属性 */
+  width: @w;
+  height: @h;
+  position: absolute;
+  margin: -@h/2 0 0 -@w/2;
+  left: 50%;
+  top: 50%;
+}
+
+.audio-player {
+  width: 1px;
+  height: 1px;
+  position: fixed;
+  left: 60px;
+  bottom: 70px;
+  .center-btn {
+    background: #333;
+    border-radius: 50%;
+    .v-center(3*@btn-size, 3*@btn-size);
+  }
+}
+/* --侧边条---- */
+.audio-player .slide {
+  width: 870px;
+  height: 50px;
+  background: #333;
+  position: absolute;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: none;
+  left: 40px;
+  top: -10px;
+  .play-btns {
+    width: 120px;
+    height: 100%;
+    float: left;
+    margin-left: 30px;
+    > a {
+      width: 28px;
+      height: 28px;
+      background: url('../../image/sprite/playbar.png');
+      &.prv {
+        margin: 11px 0;
+        background-position: 0 -129px;
+      }
+      &.play-ply, &.play-pas {
+        width: 36px;
+        height: 36px;
+        margin: 7px;
+      }
+      &.play-ply {
+        background-position: 0 -204px;
+      }
+      &.play-pas {
+        background-position: 0 -165px;
+      }
+      &.nxt {
+        margin: 11px 0;
+        background-position: -80px -129px;
+      }
+      &.prv:hover { background-position: -30px -129px; }
+      &.play-ply:hover { background-position: -40px -204px; }
+      &.play-pas:hover { background-position: -40px -165px; }
+      &.nxt:hover { background-position: -110px -129px;}
+    }
+  }
+  .play-head {
+    width: 30px;
+    height: 30px;
+    float: left;
+    margin: 8px 10px;
+    padding: 2px;
+    background: url('../../image/sprite/playbar.png') 0 -80px;
+    > a > img {
+      width: 30px;
+    }
+  }
+  .play-ing {
+    width: 510px;
+    height: 100%;
+    padding: 0 5px;
+    float: left;
+    > .ptitle {
+      width: 100%;
+      height: 28px;
+      line-height: 28px;
+      > a {
+        color: #ddd;
+        float: left;
+        margin: 0 5px;
+        &.singer {
+          color: #999;
+          padding: 0 10px;
+        }
+        &:hover { text-decoration: underline; }
+      }
+    }
+    > .pbar { /* ---歌曲进度框 ---*/
+      width: 100%;
+      height: 10px;
+      padding: 5px 0;
+      > .barbg {      /*总进度条*/
+        width: 415px;
+        height: 100%;
+        float: left;
+        position: relative;
+        background: url('../../image/sprite/statbar.png') right 0;
+        > .rdy {      /*灰色缓冲条*/
+          width: 0;
+          height: 100%;
+          background: url('../../image/sprite/statbar.png') right -30px;
+        }
+        > .cur {      /*当前条*/
+          width: 400px;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          > .cur-inner {
+            width: 0;
+            height: 100%;
+            position: absolute;
+            background: url('../../image/sprite/statbar.png') left -66px;
+            > span.btn-cur {
+              width: 21px;
+              height: 21px;
+              top: -8px;
+              right: -16px;
+              position: absolute;
+              background: url('../../image/sprite/iconall.png') 0 -250px;
+              > i{
+                width: 12px;
+                height: 12px;
+                position: absolute;
+                left: 5px;
+                top: 5px;
+                display: none;
+                background: url('../../image/sprite/loading.gif');
+              }
+            }
+          }
+        }
+      }
+      > span.clock {
+        height: 100%;
+        display: block;
+        float: right;
+        color: #888;
+        line-height: 8px;
+        font-size: 12px;
+        > i {
+          display: inline;
+          float: none;
+          color: #ccc;
+        }
+        > em {
+          float: none;
+          display: inline;
+        }
+      }
+    }
+  }
+  .play-ctrl {
+    width: 115px;
+    height: 100%;
+    padding: 0 10px;
+    float: left;
+    position: relative;
+    > .cbar {
+      display: none;
+      position: absolute;
+      top: -110px;
+      left: 8px;
+      width: 32px;
+      height: 90px;
+      padding: 10px 0;
+      background: url('../../image/sprite/playbar.png') 0 -507px;
+      > .barbg {
+        width: 100%;
+        height: 88px;
+        position: absolute;
+        top: 11px;
+        > .cur {
+          width: 4px;
+          height: 70%;
+          left: 15px;
+          bottom: 0;
+          position: absolute;
+          background: url('../../image/sprite/playbar.png') -40px bottom;
+          > span {
+            width: 18px;
+            height: 18px;
+            top: -12px;
+            left: -7px;
+            position: absolute;
+            background: url('../../image/sprite/iconall.png') -40px -250px;
+          }
+        }
+      }
+    }
+    > a {
+      width: 24px;
+      height: 24px;
+      margin: 13px 1px;
+      float: left;
+      background: url('../../image/sprite/playbar.png');
+      &.icon-vol { background-position: -2px -248px; }
+      &.icon-shuffle { background-position: -66px -248px; }
+      &.icon-loop { background-position: -3px -344px; }
+      &.icon-one { background-position: -66px -344px; }
+      &.icon-vol:hover { background-position: -31px -248px; }
+      &.icon-shuffle:hover { background-position: -93px -248px; }
+      &.icon-loop:hover { background-position: -33px -344px; }
+      &.icon-one:hover { background-position: -93px -344px; }
+    }
+    > .lop-hint {
+      top: -35px;
+      left: -10px;
+      width: 82px;
+      height: 40px;
+      color: #eee;
+      display: none;
+      position: absolute;
+      line-height: 35px;
+      text-align: center;
+      background: url('../../image/sprite/playbar.png') 0 -457px;
+    }
+    > span.music-list {
+      width: 60px;
+      height: 100%;
+      display: block;
+      float: left;
+      position: relative;
+      margin: 12px 1px;
+      > a {
+        width: 60px;
+        height: 25px;
+        color: #888;
+        text-indent: 30px;
+        line-height: 26px;
+        background: url("../../image/sprite/playbar.png") -42px -68px;
+        &:hover {
+          color: #888;
+          background-position: -42px -98px;
+        }
+      }
+      > em {
+        width: 152px;
+        height: 50px;
+        position: absolute;
+        top: -50px;
+        left: -65px;
+        color: #eee;
+        display: none;
+        text-align: center;
+        line-height: 40px;
+        background: url('../../image/sprite/playbar.png') 0 -286px;
+      }
+    }
+  }
+}
+.audio-player .table {
+  width: 480px;
+  height: 300px;
+  color: #979697;
+  font-size: 13px;
+  background: #2a2a2a;
+  position: absolute;
+  display: none;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  top: -301px;
+  left: 300px;
+  > .tab-title {
+    width: 460px;
+    height: 36px;
+    padding: 0 10px;
+    line-height: 36px;
+    overflow: hidden;
+    border-bottom: solid 1px #000;
+    > h3, > a {
+      float: left;
+    }
+    > h3 {
+      width: 330px;
+      padding: 0 10px;
+      font-size: 17px;
+    }
+    > a.icon-empty {
+      width: 80px;
+      font-size: 12px;
+      span {
+        width: 16px;
+        height: 16px;
+        margin: 10px 2px;
+        display: block;
+        float: left;
+        background: url('../../image/sprite/playlist.png') no-repeat -50px 1px;
+      }
+      &:hover {
+        color: #ddd;
+      }
+    }
+    > a.icon-close {
+      width: 25px;
+      height: 100%;
+      float: right;
+      cursor: pointer;
+      background: url('../../image/sprite/playlist.png') -195px 13px;
+    }
+  }
+  > .tab-content {
+    width: 470px;
+    height: 250px;
+    float: left;
+    position: relative;
+    overflow: hidden;
+    > ul {
+      width: 100%;
+      position: absolute;
+      > li {
+        width: 100%;
+        height: 30px;
+        cursor: pointer;
+        overflow: hidden;
+        &:hover {
+          color: #eee;
+          background: #222;
+        }
+        > .abs-stus {
+          width: 25px;
+          height: 30px;
+          position: absolute;
+          display: none;
+          > span.icn-stus{
+            width: 10px;
+            height: 13px;
+            display: block;
+            margin: 9px 0 0 8px;
+            background: url('../../image/sprite/playlist.png') -182px 0;
+          }
+        }
+        > .col {
+          float: left;
+          height: 30px;
+          line-height: 30px;
+        }
+        > .txtOF {
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        > .col-1 {
+          width: 52%;
+          text-indent: 25px;
+        }
+        > .col-2 {
+          width: 12%;
+          a {
+            width: 20px;
+            height: 20px;
+            margin: 5px 3px;
+            display: none;
+            float: left;
+            background: url('../../image/sprite/playlist.png');
+          }
+          a.icn-dwn {  background-position: -55px -48px;  }
+          a.icn-dwn:hover {  background-position: -78px -48px;  }
+          a.icn-del {  background-position: -48px 3px;  }
+          a.icn-del:hover {  background-position: -48px -17px;  }
+        }
+        > .col-3{
+          width: 26%;
+        }
+        > .col-4 {
+          width: 8%;
+        }
+      }
+    }
+    > .empty {
+      text-align: center;
+      margin: 10px auto;
+    }
+  }
+  > .scrol {
+    width: 6px;
+    height: 250px;
+    padding-right: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+    background: #111;
+    position: relative;
+    overflow: hidden;
+    display: none;
+    > .icon-scl {
+      width: 6px;
+      height: auto;
+      margin: 0 5px 12px 0;
+      position: absolute;
+      border-radius: 5px;
+      background: #ccc;
+    }
+  }
+}
+audio {
+  display: none;
+}
