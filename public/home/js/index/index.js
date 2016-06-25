@@ -6,9 +6,9 @@ define( function( require, exports, module ) {
 	function Index() {
 		this.btnDwn = '.btns .btn-down';		//宣传栏左侧的下载按钮
 		this.btnSm = '.btns .sm';				//宣传栏左侧的其他按钮
-		this.slides = '.slides';				//滚动框
-		this.sliUL = '.slides ul.points';		//滚动框 图片
-		this.sliTips = '.slides ul.sub-tips li';//滚动图小按钮
+		this.slides = '.section';				//滚动框
+		this.sliUL = '.section ul.slides';		//滚动框 图片
+		this.sliDots = '.section ul.sub-dots li';//滚动图小按钮
 		this.SIZE;							//滚动图片宽度
 		this.LENGTH;						//滚动图片数量
 		this._timer;						//滚动定时器
@@ -16,12 +16,10 @@ define( function( require, exports, module ) {
 
 		this.rank = '.rank dl';
 		this.rankALLPlay = '.rank dl dt .dt-txt a.icon-play';	//飙升榜
-		this.rankALLStore = '.rank dl dt .dt-txt a.icon-store';	//飙升榜
 
 		this.rankLI = '.rank dl dd';							//排行榜li
 		this.rankLIPlay = '.rank dl dd .dd-oper a.icon-play';	//排行榜li的播放按钮
 		this.rankLIAdd = '.rank dl dd .dd-oper a.icon-add';		//排行榜li的添加按钮
-		this.rankLIStore = '.rank dl dd .dd-oper a.icon-store';	//排行榜li的收藏按钮
 	}
 
 	module.exports = Index;
@@ -34,13 +32,34 @@ define( function( require, exports, module ) {
 
 	Index.prototype._init = function() {
 
-		var self = this;
 		this.SIZE = $(this.sliUL).find('img').width();
 		this.LENGTH = $(this.sliUL).find('img').length;
 
 		$(this.sliUL).css('width', this.SIZE*this.LENGTH + 'px');
 
 		this._fnTimer(0);
+
+	};
+
+	Index.prototype.canvas = function () {
+		// this.index++;
+		// var r = Math.floor(Math.random() * (254)),
+		// 	g = Math.floor(Math.random() * (254)),
+		// 	b = Math.floor(Math.random() * (254)),
+		// 	x = Math.floor(Math.random() * (200)),
+		// 	y = Math.floor(Math.random() * (300)),
+		// 	color = "rgba("+r+", "+g+", "+b+", 0.5)",
+		// 	radius = 20,
+		// 	name = 'bubble' + this.index;
+		// $('canvas').drawArc({
+		// 	layer: true,
+		// 	name: name,
+		// 	fillStyle: color,
+		// 	x: x, y: y,
+		// 	radius: radius
+		// }).animateLayer(name, {
+		// 	radius: 100, opacity: 0
+		// }, 1500);
 	};
 
 	Index.prototype._fnTimer = function(i) {
@@ -54,58 +73,38 @@ define( function( require, exports, module ) {
 
 		ahead();
 		
-		this._timer = setInterval(ahead, 6000);
+		this._timer = setInterval(ahead, 7000);
 
 		function ahead() {
-
-			$ (self.sliUL ).animate({
-				left: -index * SIZE+ 'px'
-			}, 500);
-
-			$( self.sliTips ).removeClass('active').eq( index ).addClass('active');
-
+			var gcolor = $(self.sliUL).children('li').eq(index).attr('data-bg');
+			$(self.sliUL).children('li').hide().eq(index).fadeIn(1000);
+			$('.wrap .main-top').css('background', gcolor);
+			$( self.sliDots ).removeClass('active').eq( index ).addClass('active');
 			index = (++index >= LENGTH ? 0 : index);
-
 		}
 	};
 	
 	Index.prototype._load = function() {
-		var self = this; 
-		$.get('../../phpCtrl/getNews.php', function(result) {
-			var json = $.parseJSON(result);
+		var self = this;
+		// 初始化三个排行榜
+		rank(0);rank(1);rank(2);
+		function rank(i) {
+			var json = require('../data/list');
 			var html = '';
 			$.each(json, function (index, value) {
-				html += '<li>' +
-							'<a href="javascript:;">'+value.title+'</a>' +
-							'<span>'+value.pubDate.substring(5,10)+'</span>' +
-					'</li>';
-			});	
-			$('ul.aside-list').append(html).find('a').first().attr('class', 'active');		
-		});
-
-		// 初始化三个排行榜
-		rank(0);
-		rank(1);
-		rank(2);
-		function rank(i) {
-			$.get('../../phpCtrl/getRank.php', {data: i}, function(res) {
-				var json = $.parseJSON(res);
-				var html = '';
-				$.each(json, function (index, value) {
-					html += '<dd data-id="' + value.music_id + '">' +
-								'<span>' + (index+1) + '</span>' +
-								'<a href="javascript:;">'+value.name+'</a>' +
-								'<div class="dd-oper">' +
-									'<a href="javascript:;" class="icon-play"></a>' +
-									'<a href="javascript:;" class="icon-add"></a>' +
-									'<a href="javascript:;" class="icon-store"></a>' +
-							'</div>' +
-						'</dd>';
-				});	
-				html += '<div class="dd"><a href="javascript:;" class="dd-more">查看更多&gt;</a></div>';
-				$(self.rank).eq(i).append(html);
-				$(self.rank).eq(i).children('dd:even').css('background','#e8e8e8');		
+				html += '<dd data-id="' + value.id + '">' +
+					'<span>' + (index+1) + '</span>' +
+					'<a href="javascript:;">'+value.name+'</a>' +
+					'<div class="dd-oper">' +
+					'<a href="javascript:;" class="icon-play"></a>' +
+					'<a href="javascript:;" class="icon-add"></a>' +
+					'<a href="javascript:;" class="icon-store"></a>' +
+					'</div>' +
+					'</dd>';
 			});
+			html += '<div class="dd"><a href="javascript:;" class="dd-more">查看更多&gt;</a></div>';
+			$(self.rank).eq(i).append(html);
+			$(self.rank).eq(i).children('dd:even').css('background','#e8e8e8');
 		}
 	};
 
@@ -114,30 +113,7 @@ define( function( require, exports, module ) {
 			Player = require('../common/player'),
 			MList = require('../common/mlist');
 
-		$('.wrap .main-top').on({
-			mouseover: function () {
-				$(this).animate({fontSize: "19px"});
-			},
-			mouseleave: function () {
-				$(this).animate({fontSize: "20px"});
-			}
-		}, this.btnDwn ).on({
-			mouseover: function () {
-				$(this).animate({textIndent: "0"}, 400);
-			},
-			mouseleave: function () {
-				$(this).animate({textIndent: "10px"}, 300);
-			}
-
-		}, this.btnSm).on({
-			mouseover: function() {
-				$(self.sliTips).parent('ul').attr('class', 'sub-tips sub-bg');	//加背景
-			},
-			mouseout: function() {
-				$(self.sliTips).parent('ul').attr('class', 'sub-tips');		//移除背景
-			}
-
-		}, this.slides).on('click', this.sliTips, function() {
+		$('.wrap .main-top').on('click', this.sliDots, function() {
 			self._fnTimer($(this).index());
 
 		}).on('click', this.btnNews, function() {

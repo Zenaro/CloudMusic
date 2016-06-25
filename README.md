@@ -1,10 +1,5 @@
 # FE-CloudMusic
 
-![cloudmusic](http://7xstax.com1.z0.glb.clouddn.com/index-1.png)
-
-![cloudmusic](http://7xstax.com1.z0.glb.clouddn.com/index-2.png)
-
-
 ## 这是云音乐的完全前端版本，
 
 分离出了后台，所有数据接口使用require替换。
@@ -15,3 +10,8 @@
 
 网站实现的主要功能为播放器，播放列表，歌词滚动，等等。
 限于篇幅，先到这里
+
+![cloudmusic](http://7xstax.com1.z0.glb.clouddn.com/index-1.png)
+
+![cloudmusic](http://7xstax.com1.z0.glb.clouddn.com/index-2.png)
+

@@ -26,7 +26,7 @@ define( function ( require, exports, module ) {
 				client = client < - this.listHeight ? client + this.listHeight : 0;
 
 			} else if ( !!temp && !!temp.add ) {				// 待定
-				hg += temp.add;
+				//hg += temp.add;
 			}
 
 			if (hg >= subHg) {
@@ -77,11 +77,9 @@ define( function ( require, exports, module ) {
 					$(this).find('.col-2 a').hide();
 				},
 				dblclick : function() {
-					$.get('../../phpCtrl/getMInfo.php?id=' + $(this).attr('data-id'), function(res) {
-						var json = $.parseJSON(res)[0],
-							M = require('./player');
-						M.init(json.music_id);
-					});
+					var info = getMInfo($(this).attr('data-id')),
+						M = require('./player');
+					M.init(info.id);
 				}
 
 			}, '.table ul.mtab li' ).on('click', 'ul.mtab li a.icn-del', function() {
@@ -196,6 +194,15 @@ define( function ( require, exports, module ) {
 
 		} else if ( delta < 0) {
 			return -1;		// do another thing
+		}
+	}
+
+	function getMInfo (data) {
+		var json = require('../data/list');
+		for (key in json) {
+			if (json[key].id == data || json[key].src == data) {
+				return json[key];
+			}
 		}
 	}
 });

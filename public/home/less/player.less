@@ -24,25 +24,26 @@
   .center-btn {
     background: #333;
     border-radius: 50%;
+    z-index: 1;
     .v-center(3*@btn-size, 3*@btn-size);
   }
 }
 /* --侧边条---- */
 .audio-player .slide {
-  width: 870px;
+  width: 790px;
   height: 50px;
   background: #333;
   position: absolute;
+  padding-left: 20px;
   border-top-right-radius: 20px;
   border-bottom-right-radius: 20px;
-  display: none;
+  //display: none;
   left: 40px;
   top: -10px;
   .play-btns {
-    width: 120px;
+    width: 100px;
     height: 100%;
     float: left;
-    margin-left: 30px;
     > a {
       width: 28px;
       height: 28px;
@@ -54,7 +55,7 @@
       &.play-ply, &.play-pas {
         width: 36px;
         height: 36px;
-        margin: 7px;
+        margin: 7px 3px;
       }
       &.play-ply {
         background-position: 0 -204px;
@@ -78,13 +79,14 @@
     float: left;
     margin: 8px 10px;
     padding: 2px;
+    cursor: pointer;
     background: url('../../image/sprite/playbar.png') 0 -80px;
     > a > img {
       width: 30px;
     }
   }
   .play-ing {
-    width: 510px;
+    width: 485px;
     height: 100%;
     padding: 0 5px;
     float: left;
@@ -108,7 +110,7 @@
       height: 10px;
       padding: 5px 0;
       > .barbg {      /*总进度条*/
-        width: 415px;
+        width: 405px;
         height: 100%;
         float: left;
         position: relative;
@@ -234,11 +236,10 @@
     }
     > span.music-list {
       width: 60px;
-      height: 100%;
       display: block;
       float: left;
       position: relative;
-      margin: 12px 1px;
+      margin: 12px 1px 13px 1px;
       > a {
         width: 60px;
         height: 25px;
@@ -268,7 +269,7 @@
 }
 .audio-player .table {
   width: 480px;
-  height: 300px;
+  height: 310px;
   color: #979697;
   font-size: 13px;
   background: #2a2a2a;
@@ -276,8 +277,8 @@
   display: none;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
-  top: -301px;
-  left: 300px;
+  top: -320px;
+  left: 40px;
   > .tab-title {
     width: 460px;
     height: 36px;

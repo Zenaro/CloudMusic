@@ -1,3 +1,4 @@
+@nav-H: 1040px;
 .wrap {
   .column{
     width: 100%;
@@ -32,7 +33,58 @@
     }
   }
   .main-top {
-    height: 265px;
+    height: 335px;
+    background: #000;
+    > .center {
+      width:@nav-H;
+      height: 100%;
+      margin: 0 auto;
+      > .section {
+        width: 75%;
+        height: 100%;
+        float: left;
+        overflow: hidden;
+        position: relative;
+        > ul.slides {
+          height: 100%;
+          position: absolute;
+          li {
+            width: 780px;
+            height: 100%;
+            float: left;
+            img {
+              width: 780px;
+              transform: matrix(1, 0, 0, 1, 0, 0);
+            }
+          }
+        }
+        > ul.sub-dots {
+          width: 100%;
+          position: absolute;
+          color: #ddd;
+          padding: 5px 0;
+          text-align: center;
+          bottom: 0;
+          right: 0;
+          li {
+            cursor: pointer;
+            width: 25px;
+            float: left;
+            &:first-child {
+              margin-left: 230px;
+            }
+            &:hover, &.active {
+              color: #0F3C8D;
+            }
+          }
+        }
+      }
+      > .sidebar {
+        width: 24%;
+        height: 100%;
+        float: left;
+      }
+    }
   }
   .main-class {
     height: 320px;
@@ -96,17 +148,10 @@
     /* -- section -- */
     .section {
       float: right;
-      > ul {
-        overflow: hidden;
-        > li {
-          width: 30%;
-          height: 100%;
-          margin: 1% 0 0 10%;
-          float: left;
-          > img {
-            width: 200px;
-          }
-        }
+      > p {
+        text-align: center;
+        line-height: 322px;
+        font-size: 16px;
       }
     }
   }

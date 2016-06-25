@@ -57,20 +57,18 @@ define( function ( require, exports, module ) {
 					this.value = $(self.resultLI).eq(self.index).find('.result-name').html();
 
 				} else if ( !!$.trim(this.value )) {
-					$.post('../../phpCtrl/search.php', { content:$.trim(this.value) }, function (res) {
-						var html = '';
-						if ( res == 'false' ) {
-							html = '搜索结果 -- 0条匹配';
+					var html = '',
+						res = require('../data/list');
+					if ( res == 'false' ) {
+						html = '搜索结果 -- 0条匹配';
 
-						} else {
-							var json = $.parseJSON(res);
-							$.each(json, function (index, value) {
-								html += '<li data-id="'+value.music_id+'"><a href="javascript:;"><div class="col result-master">'+value.singer_name+'</div><div class="col col-str">--</div><div class="col result-name">'+value.name+'</div></a></li>'
-							});
-						}
-						$(self.result).empty();
-						$(self.result).append(html);
-					});
+					} else {
+						$.each(res, function (index, value) {
+							html += '<li data-id="'+value.id+'"><a href="javascript:;"><div class="col result-master">'+value.master+'</div><div class="col col-str">--</div><div class="col result-name">'+value.name+'</div></a></li>'
+						});
+					}
+					$(self.result).empty();
+					$(self.result).append(html);
 				}
 
 				$(self.result).show();

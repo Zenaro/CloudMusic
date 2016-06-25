@@ -12,14 +12,11 @@ define(function (require, exports, module) {
         /* -------  public -------- */
         // 构建插件
         render: function () {
-            var self = this;
             this.global = $('.audio-player'); // 初始化global播放器全局对象
             this.audio = $('audio')[0];
             this.audio.volume = $('.play-ctrl .cbar .cur').height() / 100 ;
             this._bind();                   // 启动事件监听器
-            // $.get('../../phpCtrl/getMusic.php', function(res) {
-            //     self.json = $.parseJSON(res);
-            // });
+            this.json = require('../data/list');
         },
 
         // init方法，同时对外提供
@@ -34,41 +31,36 @@ define(function (require, exports, module) {
             $('.play-ing .ptitle a').attr('href', '#/result?id=' + dataID);
             $(self.audio).attr('data-id', dataID);
 
-            $.get('../../phpCtrl/getMInfo.php?id=' + dataID, function (res) {
-                json = $.parseJSON(res)[0];
-                $('.play-ing .ptitle a.title').html(json.name);
-                $('.play-ing .ptitle a.singer').html(json.singer_name);
-                self.audio.src = json.src;
-                self.audio.play();
-                $('.audio-player .center-btn').trigger("mouseover");
-            });
+            json = getMInfo(dataID);
+            $('.play-ing .ptitle a.title').html(json.name);
+            $('.play-ing .ptitle a.singer').html(json.master);
+            self.audio.src = json.src;
+            self.audio.play();
+            $('.audio-player .center-btn').trigger("mouseover");
         },
 
         // append添加歌曲进歌单方法，同时对外公开
         appendEle: function (add) {
-            var info = null,
+            var self = this,
+                info = null,
                 num = 0,
                 objUl = $('.audio-player .table ul'),
                 html = '';
             if (add instanceof Array) {           // Array类型
-                $.get('../../phpCtrl/getMInfo.php?arr=' + add, function (res) {
-                    info = $.parseJSON(res);
-                    $.each(info, function (index, value) {
-                        html += ceilPlus(value);        // 见下方ceilPlus方法
-                    });
-                    objUl.append(html).siblings('.empty').hide();
-                    num = $(objUl).children('li').length;
-                    $('.play-ctrl a.icon-list').text(num);
+                info = self.json;
+                $.each(info, function (index, value) {
+                    html += ceilPlus(value);        // 见下方ceilPlus方法
                 });
+                objUl.append(html).siblings('.empty').hide();
+                num = $(objUl).children('li').length;
+                $('.play-ctrl a.icon-list').text(num);
 
             } else if (Number(add) == add) {    // number类型
-                $.get('../../phpCtrl/getMInfo.php?id=' + add, function (res) {
-                    info = $.parseJSON(res)[0];
-                    html += ceilPlus(info);
-                    objUl.append(html).siblings('.empty').hide();
-                    num = $(objUl).children('li').length;
-                    $('.play-ctrl a.icon-list').text(num);
-                });
+                info = getMInfo(add);
+                html += ceilPlus(info);
+                objUl.append(html).siblings('.empty').hide();
+                num = $(objUl).children('li').length;
+                $('.play-ctrl a.icon-list').text(num);
             } else {
                 console.log('参数不匹配');
             }
@@ -81,19 +73,19 @@ define(function (require, exports, module) {
 
                 for (var i = $(objLI).length - 1; i >= -1; i--) {
                     existID = $(objLI).eq(i).attr('data-id');
-                    if (value.music_id == existID) {	// 判断是否重复添加
+                    if (value.id == existID) {	// 判断是否重复添加
                         break;
 
                     } else if (i <= 0) {
-                        dom = '<li data-id="' + value.music_id + '">' +
+                        dom = '<li data-id="' + value.id + '">' +
                             '<div class="abs-stus"><span class="icn-stus"></span></div>' +
                             '<div class="col col-1">' + value.name + '</div>' +
                             '<div class="col col-2">' +
-                            '<a href="' + value.src + '" download="' + value.name + '-' + value.singer_name + '.mp3" ' +
+                            '<a href="' + value.src + '" download="' + value.name + '-' + value.master + '.mp3" ' +
                                 'class="icn-dwn" title="下载"></a>' +
                             '<a href="javascript:;" class="icn-del" title="删除"></a>' +
                             '</div>' +
-                            '<div class="col col-3">' + value.singer_name + '</div>' +
+                            '<div class="col col-3">' + value.master + '</div>' +
                             '<div class="col col-4">' + parseTime(value.duration) + '</div>' +
                             '</li>';
                         break;
@@ -112,11 +104,20 @@ define(function (require, exports, module) {
                 $('.audio-player .table').fadeOut();
                 $('.audio-player .slide').fadeOut();
 
+            }).on('click', 'a', function (event) {
+                var e = event || window.event;
+                e.stopPropagation();
+
             }).on('click', '.audio-player', function (event) {
                 var e = event || window.event;
                 e.stopPropagation();
+
             }).on('mouseover', '.audio-player .center-btn', function () {
                 $('.audio-player .slide').fadeIn();
+
+            }).on('click', '.audio-player .slide', function () {
+                $('.table').hide();
+                $('.play-ctrl .cbar').hide();
             });
 
             $(this.global).on('click', '.fix-lock a', function() {
@@ -297,5 +298,14 @@ define(function (require, exports, module) {
             sec = '0' + sec;
         }
         return min + ':' + sec;
+    }
+
+    function getMInfo (data) {
+        var json = require('../data/list');
+        for (key in json) {
+            if (json[key].id == data || json[key].src == data) {
+                return json[key];
+            }
+        }
     }
 });

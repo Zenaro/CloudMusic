@@ -4,7 +4,10 @@
 //设置configuration
 seajs.config({
     base: "../../Lib",
-    alias: {"jquery" : "jquery/jquery.js"}
+    alias: {
+        "jquery" : "jquery/jquery.js",
+        "jcanvas" : "JCanvas/jcanvas.min.js"
+    }
 });
 
 seajs.use('../../public/home/js/common/main');   //引入main.js
